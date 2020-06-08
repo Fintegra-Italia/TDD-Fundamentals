@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TidyFiles;
 using TidyFiles.Models;
@@ -50,7 +51,9 @@ namespace TestProject
             };
 
             IList<Filter> Actual = FileReader.Read(FilterFilePath);
-            CollectionAssert.AreEqual(Expected as ICollection, Actual as ICollection);
+            ICollection exp = Expected.OrderBy(e => e.Id).ToList() as ICollection;
+            ICollection act = Actual.OrderBy(e => e.Id).ToList() as ICollection;
+            CollectionAssert.AreEqual(exp, act);
         }
 
         [TestMethod]

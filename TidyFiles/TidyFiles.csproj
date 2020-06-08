@@ -46,8 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HasExtension.cs" />
     <Compile Include="Interfaces\IJsonReader.cs" />
     <Compile Include="FilterReader.cs" />
+    <Compile Include="Interfaces\IRule.cs" />
     <Compile Include="Models\Filter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

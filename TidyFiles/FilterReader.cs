@@ -13,7 +13,7 @@ namespace TidyFiles
     {
         public IList<Filter> Read(string FilePath)
         {
-            throw new NotImplementedException();
+            return new List<Filter>();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace TidyFiles
         {
             return (string FilePath, string Value) =>
             {
-                return Value != "rendiconto";
+                return (FilePath.Contains("pdf") || Value != "rendiconto");
             };
         }
     }

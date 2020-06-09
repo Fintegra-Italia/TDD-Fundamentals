@@ -7,11 +7,13 @@ namespace TestProject
     
     public class NameContainRule_TEST
     {
-        [Fact]
-        public void PassingCorrectData_ShouldReturnTrue()
+        [Theory]
+        [InlineData("immagine_sfondo.jpg", "sfondo")]
+        [InlineData("rendiconto_mensile.pdf", "rendiconto")]
+        [InlineData("lista_spesa.xls", "spesa")]
+        //[InlineData("rendiconto_mensile.xls", "rendiconto")]
+        public void PassingCorrectData_ShouldReturnTrue(string filePath, string value)
         {
-            string filePath = "immagine_sfondo.jpg";
-            string value = "sfondo";
             var rule = new NameContain().GetRule();
 
             bool actual = rule.Invoke(filePath, value);

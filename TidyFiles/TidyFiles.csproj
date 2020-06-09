@@ -51,6 +51,7 @@
     <Compile Include="FilterReader.cs" />
     <Compile Include="Interfaces\IRule.cs" />
     <Compile Include="Models\Filter.cs" />
+    <Compile Include="NameContain.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

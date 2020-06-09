@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TidyFilesCore.Models
+namespace TidyFilesConsole.Models
 {
     public class Filter
     {

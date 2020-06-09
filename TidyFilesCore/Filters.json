@@ -1,0 +1,22 @@
+[
+  {
+    "Id": 1,
+    "RuleName": "HasExtension",
+    "Value": "pdf",
+    "Destination": "Pdf_Files"
+  },
+  {
+    "Id": 2,
+    "RuleName": "HasExtension",
+    "Value": "jpg",
+    "Destination": "Images_Files"
+  },
+  {
+    "Id": 3,
+    "RuleName": "HasExtension",
+    "Value": "png",
+    "Destination": "Images_Files"
+  }
+]
+
+

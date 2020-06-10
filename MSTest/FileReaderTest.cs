@@ -11,8 +11,9 @@ using TidyFilesConsole.Models;
 
 namespace MSTest
 {
+
     [TestClass]
-    public class FileReader_TEST
+    public class FileReaderTest
     {
         FilterReader<Filter> FileReader;
         string FilterFilePath;
@@ -64,6 +65,7 @@ namespace MSTest
             Assert.IsNull(filterList);
         }
 
+        
         [TestMethod]
         [DataRow("")]
         [DataRow(null)]
@@ -78,50 +80,9 @@ namespace MSTest
         public void Read_ReadingInvalidFile_RetriveException(string invalidFilePath)
         {
             //Act and Assert
-            Assert.ThrowsException<ArgumentException>(() => FileReader.Read(invalidFilePath));
+            Assert.ThrowsException<ArgumentNullException>(() => FileReader.Read(invalidFilePath));
         }
-
-        /*
-
-           [TestMethod]
-           [DataRow("")]
-           [DataRow(null)]
-           [DataRow("  ")]
-           [DataRow("  123abc  ")]
-           [DataRow("\\")]
-           [DataRow("Filter.txt")]
-           [DataRow("Filter.docx")]
-           [DataRow("Filter.png")]
-           [DataRow("Filter.jpeg")]
-           [DataRow("Filter.sln")]
-           public void FilterReader_InvalidFilePath_ShoudThrow_ArgumentException(string invalidFilePath)
-           {
-               Assert.ThrowsException<ArgumentException>(() => FileReader.Read(invalidFilePath));
-           }
-
-           [TestMethod]
-           public void FilterReader_EmptyFile_ShouldReturn_EmptyCollection()
-           {
-               IList<Filter> Actual = FileReader.Read(FilterEmpty);
-               Assert.IsNotNull(Actual, "Actual non Dovrebbe essere null");
-               Assert.AreEqual(Actual.Count, 0, "Numero di Elementi non corretto");
-           }
-
-           [TestMethod]
-           public void FilterReader_NoDataFile_ShouldReturn_EmptyCollection()
-           {
-               IList<Filter> Actual = FileReader.Read(FilterNoData);
-               Assert.IsNotNull(Actual, "Actual non Dovrebbe essere null");
-               Assert.AreEqual(Actual.Count, 0, "Numero di Elementi non corretto");
-           }
-
-           [TestMethod]
-           public void FilterReader_IncorrectJsonFormat_ShoudThrow_Exception()
-           {
-               Assert.ThrowsException<FormatException>(() => FileReader.Read(FilterIncorrectFormat));
-           }
-
-       */
+        
 
     }
 }

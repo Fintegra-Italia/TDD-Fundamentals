@@ -13,12 +13,12 @@ namespace TidyFilesConsole
     {
         public IList<Filter> Read(string path)
         {
-            if (path is null) throw new ArgumentNullException("Argument null exception ", nameof(path));
+            if (String.IsNullOrEmpty(path)) throw new ArgumentNullException("Argument null exception ", nameof(path));
 
             FileInfo fileInfo = new FileInfo(path);
             string extensionToCheck = fileInfo.Extension;
 
-            if(!ExtensionIsAllowed(extensionToCheck)) throw new ArgumentNullException("Extension not allowed", nameof(extensionToCheck));
+            if(! extensionToCheck.Equals(".json")) throw new ArgumentNullException("Extension not allowed", nameof(extensionToCheck));
 
             List<Filter> list;
             using (StreamReader reader = new StreamReader(path))
@@ -28,12 +28,6 @@ namespace TidyFilesConsole
             }
 
             return list;
-        }
-
-        private bool ExtensionIsAllowed(string extensionToCheck)
-        {
-            List<string> extensionAllowed = new List<string>() { ".pdf", ".jpg", ".png" };
-            return extensionAllowed.Contains(extensionToCheck);
         }
     }
 }

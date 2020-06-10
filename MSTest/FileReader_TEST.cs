@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MSTest.Builders;
+using MSTest.Utils;
+using Newtonsoft.Json;
 using TidyFilesConsole;
 using TidyFilesConsole.Models;
 
@@ -22,39 +25,46 @@ namespace MSTest
         {
             string baseFolder = AppDomain.CurrentDomain.BaseDirectory;
             FileReader = new FilterReader<Filter>();
-            FilterFilePath = $@"{baseFolder}\FileForIntegrationTest\Filters.json";
-            FilterEmpty = $@"{baseFolder}\FileForIntegrationTest\FiltersEmpty.json";
-            FilterNoData = $@"{baseFolder}\FileForIntegrationTest\FiltersNoData.json";
-            FilterIncorrectFormat = $@"{baseFolder}\FileForIntegrationTest\FiltersIncorrectFormat.json";
+            FilterFilePath = $@"{baseFolder}FileForIntegrationTest/Filters.json";
+            FilterEmpty = $@"{baseFolder}FileForIntegrationTest/FiltersEmpty.json";
+            FilterNoData = $@"{baseFolder}FileForIntegrationTest/FiltersNoData.json";
+            FilterIncorrectFormat = $@"{baseFolder}FileForIntegrationTest/FiltersIncorrectFormat.json";
         }
 
         [TestMethod]
-        public void FilterReader_CorrectFilePath_ShoudReturn_NotNull()
+        public void Read_ReadingValidJsonWithoutItems_RetriveEmptyList()
         {
-            IList<Filter> Actual = FileReader.Read(FilterFilePath);
-            Assert.IsNotNull(Actual);
+            //Act
+            IList<Filter> filterList = FileReader.Read(FilterNoData);
+            //Assert
+            Assert.AreEqual(0, filterList.Count);
         }
-        [TestMethod]
-        public void FilterReader_CorrectFilePath_ShoudReturn_CorrectLentgth()
-        {
-            IList<Filter> Actual = FileReader.Read(FilterFilePath);
-            Assert.IsTrue(Actual.Count == 3);
-        }
-        [TestMethod]
-        public void FilterReader_CorrectFilePath_ShoudReturn_CorrectCollection()
-        {
-            IList<Filter> Expected = new List<Filter>()
-            {
-                new Filter(){Id = 1, RuleName = "HasExtension", Value = "pdf", Destination = "Pdf_Files"},
-                new Filter(){Id = 2, RuleName = "HasExtension", Value = "jpg", Destination = "Images_Files"},
-                new Filter(){Id = 3, RuleName = "HasExtension", Value = "png", Destination = "Images_Files"}
-            };
 
-            IList<Filter> Actual = FileReader.Read(FilterFilePath);
-            ICollection exp = Expected.OrderBy(e => e.Id).ToList() as ICollection;
-            ICollection act = Actual.OrderBy(e => e.Id).ToList() as ICollection;
-            CollectionAssert.AreEqual(exp, act);
+        [TestMethod]
+        public void Read_ReadingValidJson_RetriveFilterList()
+        {
+            //Arrange
+            var builder = new FilterBuilder();
+            List<Filter> expectedList = new List<Filter>();
+            expectedList.Add(builder.WithId(1).WithDestination("Pdf_Files").WithRuleName("HasExtension").WithValue("pdf").Build());
+            expectedList.Add(builder.WithId(2).WithDestination("Images_Files").WithRuleName("HasExtension").WithValue("jpg").Build());
+            expectedList.Add(builder.WithId(3).WithDestination("Images_Files").WithRuleName("HasExtension").WithValue("png").Build());
+            //Act
+            IList<Filter> filterList = FileReader.Read(FilterFilePath);
+            //Assert
+            AssertHelper.AreEqual(expectedList, filterList);
         }
+
+        [TestMethod]
+        public void Read_ReadingValidJson_RetriveListNull()
+        {
+            //Act
+            IList<Filter> filterList = FileReader.Read(FilterEmpty);
+            //Assert
+            Assert.IsNull(filterList);
+        }
+
+     /*
 
         [TestMethod]
         [DataRow("")]
@@ -79,6 +89,7 @@ namespace MSTest
             Assert.IsNotNull(Actual, "Actual non Dovrebbe essere null");
             Assert.AreEqual(Actual.Count, 0, "Numero di Elementi non corretto");
         }
+
         [TestMethod]
         public void FilterReader_NoDataFile_ShouldReturn_EmptyCollection()
         {
@@ -86,10 +97,14 @@ namespace MSTest
             Assert.IsNotNull(Actual, "Actual non Dovrebbe essere null");
             Assert.AreEqual(Actual.Count, 0, "Numero di Elementi non corretto");
         }
+
         [TestMethod]
         public void FilterReader_IncorrectJsonFormat_ShoudThrow_Exception()
         {
             Assert.ThrowsException<FormatException>(() => FileReader.Read(FilterIncorrectFormat));
         }
+
+    */
+
     }
 }

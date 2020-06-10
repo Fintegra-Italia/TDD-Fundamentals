@@ -12,15 +12,5 @@ namespace TidyFilesConsole.Models
         public string RuleName {get;set;}
         public string Value { get; set; }
         public string Destination { get; set; }
-        public override bool Equals(object obj)
-        {
-            if (obj == null) return false;
-            Filter other = obj as Filter;
-            if ((Object)other == null) return false;
-            return this.Id == other.Id
-                && this.RuleName == other.RuleName
-                && this.Value == other.Value
-                && this.Destination == other.Destination;
-        }
     }
 }

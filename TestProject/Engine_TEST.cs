@@ -30,7 +30,7 @@ namespace TestProject
             var filterReader = new Mock<IJsonReader<Filter>>();
             var ruleManager = new Mock<IRuleManager>();
 
-            fileListReader.Setup(m => m.GetFileList("pathQualsiasi")).Returns(new List<string>() { "filePath.json" });
+            fileListReader.Setup(m => m.GetFileList("pathQualsiasi")).Returns(new List<string>() { "filePath.json","filePath.docx", "filePath.xlsx" });
             filterReader.Setup(m => m.Read("filePath.json")).Returns(new List<Filter>() { FiltroCasuale() });
             //setup
             IList<Filter> expected = new List<Filter>() { FiltroCasuale() };

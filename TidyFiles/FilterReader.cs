@@ -11,6 +11,11 @@ namespace TidyFiles
 {
     public class FilterReader<Filter> : IJsonReader<Filter>
     {
+        IFileListReader FileListReader;
+        public FilterReader(IFileListReader fileListReader)
+        {
+            FileListReader = FileListReader ?? throw new ArgumentNullException(nameof(FileListReader));
+        }
         public IList<Filter> Read(string FilePath)
         {
             return new List<Filter>();

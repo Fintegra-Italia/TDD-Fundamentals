@@ -5,6 +5,8 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TidyFiles;
 using TidyFiles.Models;
+using Moq;
+using TidyFiles.Interfaces;
 
 namespace TestProject
 {
@@ -21,7 +23,8 @@ namespace TestProject
         public void Setup()
         {
             string baseFolder = AppDomain.CurrentDomain.BaseDirectory;
-            FileReader = new FilterReader<Filter>();
+            var fileListReader = new Mock<IFileListReader>();
+            FileReader = new FilterReader<Filter>(fileListReader.Object);
             FilterFilePath = $@"{baseFolder}\FileForIntegrationTest\Filters.json";
             FilterEmpty = $@"{baseFolder}\FileForIntegrationTest\FiltersEmpty.json";
             FilterNoData = $@"{baseFolder}\FileForIntegrationTest\FiltersNoData.json";

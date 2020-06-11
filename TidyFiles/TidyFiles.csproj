@@ -46,10 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engine.cs" />
     <Compile Include="HasExtension.cs" />
+    <Compile Include="Interfaces\IEngine.cs" />
+    <Compile Include="Interfaces\IFileListReader.cs" />
     <Compile Include="Interfaces\IJsonReader.cs" />
     <Compile Include="FilterReader.cs" />
     <Compile Include="Interfaces\IRule.cs" />
+    <Compile Include="Interfaces\IRuleManager.cs" />
     <Compile Include="Models\Filter.cs" />
     <Compile Include="NameContain.cs" />
     <Compile Include="Program.cs" />

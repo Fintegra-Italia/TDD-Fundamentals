@@ -11,7 +11,7 @@ namespace TestProject
         [InlineData("immagine_sfondo.jpg", "sfondo")]
         [InlineData("rendiconto_mensile.pdf", "rendiconto")]
         [InlineData("lista_spesa.xls", "spesa")]
-        //[InlineData("rendiconto_mensile.xls", "rendiconto")]
+        [InlineData("rendiconto_mensile.xls", "rendiconto")]
         public void PassingCorrectData_ShouldReturnTrue(string filePath, string value)
         {
             var rule = new NameContain().GetRule();

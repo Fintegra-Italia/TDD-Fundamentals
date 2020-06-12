@@ -5,7 +5,7 @@ using TidyFiles.Interfaces;
 using TidyFiles.Models;
 using TidyFiles;
 using System.Collections.Generic;
-using TidyFiles.Builders;
+using TestProject.Builders;
 
 namespace TestProject
 {

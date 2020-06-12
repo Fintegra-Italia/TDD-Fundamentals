@@ -6,6 +6,7 @@ using TidyFiles.Models;
 using TidyFiles;
 using System.Collections.Generic;
 using TidyFiles.Builders;
+using TidyFiles.FixtureObject;
 
 namespace TestProject
 {
@@ -75,15 +76,14 @@ namespace TestProject
         [Fact]
         public void Apply_ShouldUse_GetRules()
         {
-            var ruleManager = new Mock<IRuleManager>();
-            ruleManager.Setup(m => m.GetRules("HasExtension"))
-                        .Returns((string filepath, string value) => false);
+            var fixture = new EngineFixture();
+            fixture.RuleManager.AsMock().Setup(m => m.GetRules("HasExtension"))
+                                            .Returns((string filepath, string value) => false);
 
-            IEngine sut = new EngineSutBuilder()
-                                .WithRuleManager(ruleManager.Object)
-                                .Build();
+            IEngine sut = fixture.CreateSut();
+
             var actual = sut.Apply(ListaFile, ListaFiltri);
-            ruleManager.Verify((m => m.GetRules("HasExtension")), Times.Exactly(1));
+            fixture.RuleManager.AsMock().Verify((m => m.GetRules("HasExtension")), Times.Exactly(1));
         }
     }
 }

@@ -24,7 +24,8 @@ namespace TidyFiles
 
         public IList<string> Apply(IList<string> Files, IList<Filter> Filters)
         {
-            throw new NotImplementedException();
+            var res = RuleManager.GetRules("NameContain");
+            return new List<string>();
         }
 
         public IList<string> GetFiles(string FolderPath)

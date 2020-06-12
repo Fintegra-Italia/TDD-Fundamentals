@@ -30,18 +30,33 @@ namespace TestProject
             var filterReader = new Mock<IJsonReader<Filter>>();
             var ruleManager = new Mock<IRuleManager>();
 
-            fileListReader.Setup(m => m.GetFileList("pathQualsiasi")).Returns(new List<string>() { "filePath.json","filePath.docx", "filePath.xlsx" });
+            fileListReader.Setup(m => m.GetFileList("filejson.json")).Returns(new List<string>() { "filepath.json","filePath.docx", "filePath.xlsx" });
             filterReader.Setup(m => m.Read("filePath.json")).Returns(new List<Filter>() { FiltroCasuale() });
             //setup
             IList<Filter> expected = new List<Filter>() { FiltroCasuale() };
-            IEngine engine = new Engine(ruleManager.Object, filterReader.Object, fileListReader.Object);
+            IEngine sut = new Engine(ruleManager.Object, filterReader.Object, fileListReader.Object);
             
             //exercise
-            IList<Filter> actual = engine.GetFilters("pathQualsiasi");
+            IList<Filter> actual = sut.GetFilters("filejson.json");
 
             //verify
-            fileListReader.Verify((m=>m.GetFileList("pathQualsiasi")), Times.Exactly(1));
-            filterReader.Verify((m => m.Read("filePath.json")), Times.Exactly(1));
+            fileListReader.Verify((m=>m.GetFileList("filejson.json")), Times.Exactly(1));
+            filterReader.Verify((m => m.Read("filepath.json")), Times.Exactly(1));
+        }
+        [Fact]
+        public void GetFiles_ShouldUse_FileListReader()
+        {
+            //setup dipendenze
+            var fileListReader = new Mock<IFileListReader>();
+            var filterReader = new Mock<IJsonReader<Filter>>();
+            var ruleManager = new Mock<IRuleManager>();
+
+            fileListReader.Setup(m => m.GetFileList("pathQualisiasi")).Returns(new List<string>() { "filepath.json", "filePath.docx", "filePath.xlsx" });
+            IEngine sut = new Engine(ruleManager.Object, filterReader.Object, fileListReader.Object);
+
+            //exercise
+            IList<string> actual = sut.GetFiles("pathQualsiasi");
+            fileListReader.Verify((m => m.GetFileList("pathQualsiasi")), Times.Exactly(1));
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,7 +34,10 @@ namespace TidyFiles
 
         public IList<Filter> GetFilters(string FilePath)
         {
-            throw new NotImplementedException();
+            //var res = FileListReader.GetFileList(FilePath);
+            var res = Directory.GetFiles(FilePath).ToList().Where(e => e.Split('.').Last() == "json").ToList();
+            var filtri = FilterReader.Read(res[0]);
+            return new List<Filter>();
         }
     }
 }

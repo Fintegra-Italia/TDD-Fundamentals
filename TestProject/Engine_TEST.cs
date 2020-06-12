@@ -13,25 +13,7 @@ namespace TestProject
 
     public class Engine_TEST
     {
-        private Filter FiltroCasuale()
-        {
-            return new Filter()
-            {
-                Id = 1,
-                RuleName = "regolaACaso",
-                Destination = "finalDestination2",
-                Value = "valoreAcaso"
-            };
-         }
-        private IList<string> ListaFile = new List<string>() { "fileuno.jpeg", "file2.json", "file4.xlsx" };
-        private IList<Filter> ListaFiltri = new List<Filter>() { new Filter()
-                                                                    {
-                                                                        Id = 1,
-                                                                        RuleName = "regolaACaso",
-                                                                        Destination = "finalDestination2",
-                                                                        Value = "valoreAcaso"
-                                                                    }
-                                                                };
+
 
         [Fact]
         public void GetFilters_ShouldUse_FileListReader()
@@ -41,13 +23,15 @@ namespace TestProject
             var filterReader = new Mock<IJsonReader<Filter>>();
             var ruleManager = new Mock<IRuleManager>();
 
+            var input = new EngineInputBuilder();
+
             fileListReader.Setup(m => m.GetFileList("filejson.json"))
                             .Returns(new List<string>() { "filepath.json","filePath.docx", "filePath.xlsx" });
 
             filterReader.Setup(m => m.Read("filePath.json"))
-                            .Returns(new List<Filter>() { FiltroCasuale() });
+                            .Returns( input.SingleElementFilterList() );
             //setup
-            IList<Filter> expected = new List<Filter>() { FiltroCasuale() };
+            IList<Filter> expected = input.SingleElementFilterList();
             IEngine sut = new Engine(ruleManager.Object, filterReader.Object, fileListReader.Object);
             
             //exercise
@@ -62,28 +46,30 @@ namespace TestProject
         {
             //setup dipendenze
             var fileListReader = new Mock<IFileListReader>();
-            fileListReader.Setup(m => m.GetFileList("pathQualisiasi"))
+            fileListReader.Setup(m => m.GetFileList(It.IsAny<string>()))
                             .Returns(new List<string>() { "filepath.json", "filePath.docx", "filePath.xlsx" });
 
             IEngine sut = new EngineSutBuilder()
                                 .WithFileListReader(fileListReader.Object)
                                 .Build();
             //exercise
-            IList<string> actual = sut.GetFiles("pathQualsiasi");
+            IList<string> actual = sut.GetFiles(It.IsAny<string>());
             //verify
-            fileListReader.Verify((m => m.GetFileList("pathQualsiasi")), Times.Exactly(1));
+            fileListReader.Verify((m => m.GetFileList(It.IsAny<string>())), Times.Exactly(1));
         }
         [Fact]
         public void Apply_ShouldUse_GetRules()
         {
             var fixture = new EngineFixture();
-            fixture.RuleManager.AsMock().Setup(m => m.GetRules("HasExtension"))
+            var input = new EngineInputBuilder();
+            fixture.RuleManager.AsMock().Setup(m => m.GetRules(It.IsAny<string>()))
                                             .Returns((string filepath, string value) => false);
 
             IEngine sut = fixture.CreateSut();
 
-            var actual = sut.Apply(ListaFile, ListaFiltri);
-            fixture.RuleManager.AsMock().Verify((m => m.GetRules("HasExtension")), Times.Exactly(1));
+            var actual = sut.Apply(input.FileListWithAJsonFile(), input.FilterListWithRandomValue());
+
+            fixture.RuleManager.AsMock().Verify((m => m.GetRules(It.IsAny<string>())), Times.Exactly(1));
         }
     }
 }

@@ -8,6 +8,6 @@ namespace TidyFiles.Interfaces
 {
     public interface IRuleManager
     {
-        IDictionary<string, Func<string, string, bool>> Rules { get; }
+        Func<string, string, bool> GetRules(string RuleName);
     }
 }

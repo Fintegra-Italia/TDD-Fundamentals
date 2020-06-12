@@ -5,8 +5,8 @@ using TidyFiles.Interfaces;
 using TidyFiles.Models;
 using TidyFiles;
 using System.Collections.Generic;
-using TidyFiles.Builders;
-using TidyFiles.FixtureObject;
+using TestProject.Builders;
+using TestProject.FixtureObject;
 
 namespace TestProject
 {

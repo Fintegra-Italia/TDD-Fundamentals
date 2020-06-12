@@ -1,13 +1,9 @@
 ﻿using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TidyFiles;
 using TidyFiles.Interfaces;
 using TidyFiles.Models;
 
-namespace TidyFiles.FixtureObject
+namespace TestProject.FixtureObject
 {
     internal class EngineFixture
     {

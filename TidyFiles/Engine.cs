@@ -24,7 +24,7 @@ namespace TidyFiles
 
         public IList<string> Apply(IList<string> Files, IList<Filter> Filters)
         {
-            var res = RuleManager.GetRules("NameContain");
+            var res = RuleManager.GetRules("HasExtension"); 
             return new List<string>();
         }
 

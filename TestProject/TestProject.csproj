@@ -83,7 +83,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\EngineSutBuilder.cs" />
     <Compile Include="FileReader_TEST.cs" />
+    <Compile Include="FixtureObject\EngineFixture.cs" />
+    <Compile Include="MockEnvy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HasExtensionRule_TEST.cs" />
     <Compile Include="NameContainRule_TEST.cs" />

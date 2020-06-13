@@ -61,7 +61,14 @@ namespace MSTest
             //Assert
             Assert.IsNull(filterList);
         }
-        
+
+        [TestMethod]
+        public void Read_ReadingJsonWithUnexpectedFormat_RetriveException()
+        {
+            //Act and Assert
+            Assert.ThrowsException<Exception>(() => FileReader.Read(FilterIncorrectFormat));
+        }
+
         [TestMethod]
         [DataRow("")]
         [DataRow(null)]

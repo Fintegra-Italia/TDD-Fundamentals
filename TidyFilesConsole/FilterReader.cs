@@ -20,7 +20,8 @@ namespace TidyFilesConsole
 
             if(! extensionToCheck.Equals(".json")) throw new ArgumentNullException("Extension not allowed", nameof(extensionToCheck));
 
-            List<Filter> list;
+            List<Filter> list = new List<Filter>();
+
             using (StreamReader reader = new StreamReader(path))
             {
                 string content = reader.ReadToEnd();

@@ -26,6 +26,9 @@
     <None Update="FileForIntegrationTest\FiltersNoData.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="FileForIntegrationTest\FiltersIncorrectFormat %28copia%29.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="FileForIntegrationTest\" />

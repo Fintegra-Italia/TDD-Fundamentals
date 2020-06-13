@@ -4,7 +4,7 @@
     "RuleName": "HasExtension",
     "Value": "pdf",
     "Destination": "Pdf_Files"
-  
+  },
   {
     "Id": 2,
     "RuleName": "HasExtension",
@@ -14,7 +14,7 @@
   {
     "Id": 3,
     "RuleName": "HasExtension",
-    "Value": "png",
+    "Testo": "testo di test",
     "Destination": "Images_Files"
   }
 ]

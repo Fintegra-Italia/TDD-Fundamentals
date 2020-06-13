@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSTest.Builders;
 using MSTest.Utils;
+using Newtonsoft.Json;
 using TidyFilesConsole;
 using TidyFilesConsole.Models;
 
@@ -17,6 +18,7 @@ namespace MSTest
         string FilterEmpty;
         string FilterNoData;
         string FilterIncorrectFormat;
+        string FilterIncorrectDefinition;
 
         [TestInitialize]
         public void Setup()
@@ -27,6 +29,7 @@ namespace MSTest
             FilterEmpty = $@"{baseFolder}FileForIntegrationTest/FiltersEmpty.json";
             FilterNoData = $@"{baseFolder}FileForIntegrationTest/FiltersNoData.json";
             FilterIncorrectFormat = $@"{baseFolder}FileForIntegrationTest/FiltersIncorrectFormat.json";
+            FilterIncorrectDefinition = $@"{baseFolder}FileForIntegrationTest/FiltersIncorrectDefinition.json";
         }
 
         [TestMethod]
@@ -63,10 +66,17 @@ namespace MSTest
         }
 
         [TestMethod]
-        public void Read_ReadingJsonWithUnexpectedFormat_RetriveException()
+        public void Read_ReadingJsonWitIncorrectFormat_RetriveException()
         {
             //Act and Assert
-            Assert.ThrowsException<Exception>(() => FileReader.Read(FilterIncorrectFormat));
+            Assert.ThrowsException<JsonReaderException>(() => FileReader.Read(FilterIncorrectFormat));
+        }
+
+        [TestMethod]
+        public void Read_ReadingJsonWithIncorrectDefinition_RetriveException()
+        {
+            //Act and Assert
+            Assert.ThrowsException<JsonReaderException>(() => FileReader.Read(FilterIncorrectDefinition));
         }
 
         [TestMethod]

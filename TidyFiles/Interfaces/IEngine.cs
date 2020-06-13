@@ -11,6 +11,8 @@ namespace TidyFiles.Interfaces
     {
         IList<string> GetFiles(string FolderPath);
         IList<Filter> GetFilters(string FilePath);
-        IList<string> Apply(IList<string> Files, IList<Filter> Filters);
+        IList<string> ApplyFilter(IList<string> Files, Filter Filter);
+        void ApplyAction(string FileName, string Destination);
+        void Execute();
     }
 }

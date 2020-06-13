@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,23 +23,42 @@ namespace TidyFiles
             FileListReader = fileListReader ?? throw new ArgumentNullException(nameof(fileListReader));
         }
 
-        public IList<string> Apply(IList<string> Files, IList<Filter> Filters)
+        public void ApplyAction(string FileName, string Destination)
         {
-            var res = RuleManager.GetRules("HasExtension"); 
+        }
+
+        public IList<string> ApplyFilter(IList<string> Files, Filter Filter)
+        {
+            RuleManager.GetRules("nomeregola");
             return new List<string>();
+        }
+
+        public void Execute()
+        {
+            IList<string> files = GetFiles("filepath");
+            IList<Filter> filtri = GetFilters("filepath2");
+            foreach(var filtro in filtri)
+            {
+                IList<string> Selezioniati = ApplyFilter(files, filtro);
+                foreach(string file in Selezioniati)
+                {
+                    string destinazione = filtro.Destination;
+                    ApplyAction(file, destinazione);
+                }
+            }
         }
 
         public IList<string> GetFiles(string FolderPath)
         {
-            throw new NotImplementedException();
+            IList<string> fileList = FileListReader.GetFileList("filejson.json");
+            return fileList;
         }
 
         public IList<Filter> GetFilters(string FilePath)
         {
-            //var res = FileListReader.GetFileList(FilePath);
-            var res = Directory.GetFiles(FilePath).ToList().Where(e => e.Split('.').Last() == "json").ToList();
-            var filtri = FilterReader.Read(res[0]);
-            return new List<Filter>();
+            IList<string> fileList = FileListReader.GetFileList("filejson.json");
+            IList<Filter> filters = FilterReader.Read("filepath.json");
+            return filters;
         }
     }
 }

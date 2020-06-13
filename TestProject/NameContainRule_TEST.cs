@@ -28,6 +28,7 @@ namespace TestProject
             var rule = new NameContain().GetRule();
 
             bool actual = rule.Invoke(filePath, value);
+            Assert.Throws<ArgumentException>(() => rule.Invoke(filePath, value));
 
             Assert.False(actual);
         }

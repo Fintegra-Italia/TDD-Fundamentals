@@ -83,8 +83,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Builders\EngineInputBuilder.cs" />
     <Compile Include="Builders\EngineSutBuilder.cs" />
+    <Compile Include="Builders\FileListBuilder.cs" />
+    <Compile Include="Builders\FilterBuilder.cs" />
     <Compile Include="FileReader_TEST.cs" />
     <Compile Include="FixtureObject\EngineFixture.cs" />
     <Compile Include="MockEnvy.cs" />

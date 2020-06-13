@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSTest.Builders;
 using MSTest.Utils;
-using Newtonsoft.Json;
 using TidyFilesConsole;
 using TidyFilesConsole.Models;
 
@@ -46,7 +43,7 @@ namespace MSTest
         {
             //Arrange
             var builder = new FilterBuilder();
-            List<Filter> expectedList = new List<Filter>();
+            IList<Filter> expectedList = new List<Filter>();
             expectedList.Add(builder.WithId(1).WithDestination("Pdf_Files").WithRuleName("HasExtension").WithValue("pdf").Build());
             expectedList.Add(builder.WithId(2).WithDestination("Images_Files").WithRuleName("HasExtension").WithValue("jpg").Build());
             expectedList.Add(builder.WithId(3).WithDestination("Images_Files").WithRuleName("HasExtension").WithValue("png").Build());
@@ -64,7 +61,6 @@ namespace MSTest
             //Assert
             Assert.IsNull(filterList);
         }
-
         
         [TestMethod]
         [DataRow("")]

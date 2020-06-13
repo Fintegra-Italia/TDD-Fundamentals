@@ -26,9 +26,6 @@
     <Folder Include="Comparer\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TidyFilesConsole\TidyFilesConsole.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="FileForIntegrationTest\Filters.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -41,5 +38,8 @@
     <EmbeddedResource Include="FileForIntegrationTest\FiltersNoData.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TidyFilesConsole\TidyFilesConsole.csproj" />
   </ItemGroup>
 </Project>

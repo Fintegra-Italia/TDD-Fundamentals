@@ -51,6 +51,7 @@ namespace TestProject
                 }
             }
         }
+
         public class DataForIncorrectFilePathTest
         {
             public static IEnumerable TestData
@@ -71,5 +72,6 @@ namespace TestProject
                 }
             }
         }
+
     }
 }

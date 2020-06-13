@@ -75,7 +75,7 @@ namespace TestProject
             fixture.RuleManager.AsMock().Verify((m => m.GetRules(It.IsAny<string>())), Times.Exactly(1));
         }
         [Fact]
-        public void Execute_CorrectFlux_Applied()
+        public void Execute_CorrectFlow_Applied()
         {
             IList<Filter> listaFiltri = new FilterBuilder().WithOneValidFilterList().BuildList();
             IList<string> listaFile = new FileListBuilder().WithCorrectFileName().Build();
@@ -84,6 +84,7 @@ namespace TestProject
             fixture.RuleManager.AsMock().Setup(m => m.GetRules(It.IsAny<string>())).Returns(It.IsAny<Func<string, string, bool>>());
             fixture.FileListReader.AsMock().Setup(m => m.GetFileList(It.IsAny<string>())).Returns(listaFile);
             fixture.FilterReader.AsMock().Setup(m => m.Read(It.IsAny<string>())).Returns(listaFiltri);
+
             var sut = fixture.CreateSut();
             sut.Execute();
 
